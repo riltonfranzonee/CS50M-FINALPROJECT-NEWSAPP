@@ -5,18 +5,29 @@ import * as actionCreators from '../redux/actions'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 class MainScreen extends React.Component{
-
+    static navigationOptions = {
+        title: 'Latest News',
+        headerStyle: {
+          backgroundColor: '#EE2C2C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      };
     render(){
+        const { navigate } = this.props.navigation
+
         return(
             <View style={styles.page}>
                 <Button title="Submit" onPress={this.props.loadNews}/>
                 <FlatList data={this.props.articles} renderItem={({item}) => (
-                    <TouchableOpacity style={styles.row}>
-                            <Image style={styles.image} source={{uri: item.urlToImage}}/>
+                    <TouchableOpacity style={styles.row} onPress={() =>  navigate('DetailsScreen', {description: item.description, image: item.urlToImage, title: item.title, time: item.publishedAt, content: item.content, source: item.source.name, url: item.url, author: item.author  })}>
                             <View style={styles.title}>
                                 <Text style={styles.titleText}>{item.title}</Text>
-                                <Text>Published at: {item.publishedAt}</Text>
+                                <Text style={styles.published}>Published at: {item.publishedAt}</Text>
                             </View>
+                            <Image style={styles.image} source={{uri: item.urlToImage || 'https://imgplaceholder.com/72x80'}}/>
                     </TouchableOpacity>
                 )}/>
             </View>
@@ -31,24 +42,35 @@ const styles = StyleSheet.create({
     page:{
         backgroundColor: '#fff'
     },
-    row:{
-        flexDirection: 'row',
-        padding: 20,
-        paddingLeft: 5,
-        borderBottomWidth:.2,
+    row:{ 
+        paddingTop: 20,
+        paddingBottom:20,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     image:{
-        height: 120,
-        width: 120,
+        height: 300,
+        width: 400,
         borderRadius: 10,
-        marginRight: 20
+        marginRight: 10,
+        marginLeft:10,
+        marginBottom: 20
     },
     title:{
         justifyContent: 'space-around',
-        flexShrink: 1
+        flexShrink: 1,
+        marginBottom: 30
     },
     titleText:{
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 25,
+        marginRight: 10,
+        marginLeft: 10
+    },
+    published:{
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 10
     }
 })
 

@@ -10,6 +10,8 @@ import {Provider} from 'react-redux'
 import  {applyMiddleware, createStore} from 'redux'
 import thunk from 'redux-thunk'
 import reducer from './redux/reducer'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 
 
@@ -23,11 +25,29 @@ const MainStack = createStackNavigator({
   {initialRouteName: 'MainScreen'}
 )
 
+MainStack.navigationOptions ={
+    tabBarIcon: ({focoused, tintColor }) => (
+      <Icon name="newspaper-o" size={25} color={tintColor}/>
+    )
+  
+}
+
+SettingsScreen.navigationOptions={
+  tabBarIcon: ({focoused, tintColor }) => (
+    <Icon name="filter" size={25} color={tintColor}/>
+  )
+}
+
 const MainTabs = createBottomTabNavigator({
   News: MainStack,
-  Settings: SettingsScreen
+  Categories: SettingsScreen
+},{
+  tabBarOptions: {
+    activeTintColor: '#EE2C2C',
+  },
 }
 ) 
+
 
 const AppContainer = createAppContainer(MainTabs)
 
