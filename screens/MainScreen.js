@@ -15,12 +15,15 @@ class MainScreen extends React.Component{
           fontWeight: 'bold',
         },
       };
+
+      componentWillMount(){
+          this.props.loadNews('')
+      }
     render(){
         const { navigate } = this.props.navigation
 
         return(
             <View style={styles.page}>
-                <Button title="Submit" onPress={() => this.props.loadNews('')}/>
                 <FlatList data={this.props.articles} renderItem={({item}) => (
                     <TouchableOpacity style={styles.row} onPress={() =>  navigate('DetailsScreen', {description: item.description, image: item.urlToImage, title: item.title, time: item.publishedAt, content: item.content, source: item.source.name, url: item.url, author: item.author  })}>
                             <View style={styles.title}>

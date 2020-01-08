@@ -11,8 +11,7 @@ import  {applyMiddleware, createStore} from 'redux'
 import thunk from 'redux-thunk'
 import reducer from './redux/reducer'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-
+import * as actionCreators from './redux/actions'
 
 
 let store = createStore(reducer, applyMiddleware(thunk))
@@ -52,6 +51,7 @@ const MainTabs = createBottomTabNavigator({
 const AppContainer = createAppContainer(MainTabs)
 
 export default class App extends React.Component{
+
   render(){
     return(
     <Provider store={store}><AppContainer/></Provider>
