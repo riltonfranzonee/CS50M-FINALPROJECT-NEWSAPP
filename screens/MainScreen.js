@@ -1,8 +1,10 @@
 import React from 'react'
-import {View, Text, FlatList, Button, StyleSheet, Image} from 'react-native'
+import {View, Text, FlatList, Button, StyleSheet, Image, TextInput} from 'react-native'
 import {connect} from 'react-redux'
 import * as actionCreators from '../redux/actions'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 class MainScreen extends React.Component{
     static navigationOptions = {
@@ -16,7 +18,7 @@ class MainScreen extends React.Component{
         },
       };
 
-      componentWillMount(){
+      componentDidMount(){
           this.props.loadNews('')
       }
     render(){
@@ -24,6 +26,7 @@ class MainScreen extends React.Component{
 
         return(
             <View style={styles.page}>
+                
                 <FlatList data={this.props.articles} renderItem={({item}) => (
                     <TouchableOpacity style={styles.row} onPress={() =>  navigate('DetailsScreen', {description: item.description, image: item.urlToImage, title: item.title, time: item.publishedAt, content: item.content, source: item.source.name, url: item.url, author: item.author  })}>
                             <View style={styles.title}>

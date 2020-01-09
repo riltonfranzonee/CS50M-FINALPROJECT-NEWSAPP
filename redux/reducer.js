@@ -1,5 +1,7 @@
+
 let defaultState ={
-    articles: null
+    articles: null,
+    search: null
 }
 
 const reducer = (state=defaultState, action) => {
